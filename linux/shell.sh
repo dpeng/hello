@@ -10,6 +10,11 @@ declare -i max=0
 declare -i min=0
 declare -i sum=0
 declare -i i=1
+echo "#***********************************************************"
+echo "#please input an number without space then press enter     *"
+echo "#this shell script will calc the max min sum of what you   *"
+echo "#have already entered                                      *" 
+echo "#***********************************************************"
 while ((i<=10));
 do
    read x

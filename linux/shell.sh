@@ -1,10 +1,10 @@
 #!/bin/bash
 #****************************************************************
-#								*
-#version: draft							*
-#author: dpeng							*	
-#function: get ten input number and got the min/max/sum of it	*
-#								*
+#                                                               *
+#version: draft                                                 *
+#author: dpeng                                                  *	
+#function: get ten input number and got the min/max/sum of it   *
+#                                                               *
 #****************************************************************
 declare -i max=0
 declare -i min=0

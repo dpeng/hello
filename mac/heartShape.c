@@ -40,6 +40,7 @@ int heartshape2(char* str)
             else                                                  printf(" ");
         printf("\n");
     }
+    return 0;
 }
 
 int main(void)

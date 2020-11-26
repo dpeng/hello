@@ -31,8 +31,8 @@ def get_data_print():
 
         shfhShareCount  = 3500.00
         gxgkShareCount  = 1600.00
-        nhzzShareCount  = 10
-        myAccountleft   = 7.03
+        nhzzShareCount  = 10.00
+        myAccountleft   = 7.01
         investCount     = 100000.00
 
         shfhPrecent = (shfhCurrentPrice - shfhPreClosePrice)/shfhPreClosePrice
@@ -47,8 +47,8 @@ def get_data_print():
 
         print(currentTime, '==> shfh:{:.2f}%'.format(shfhPrecent*100),'      ','gxgk:{:.2f}%'.format(gxgkPrecent*100),'      ',\
             'nhzz:{:.2f}%'.format(nhzzPrecent*100),'      ',\
-            'Benefit:{:.0f}'.format(ToadyBenefit),'      ','{:.0f}'.format(TotalBenifit))
-        time.sleep(4)
+            'Benefit:{:.2f}'.format(ToadyBenefit),'      ','{:.2f}'.format(TotalBenifit))
+        time.sleep(5)
 
         # write result to file per ten times
         if num%10 == 9:

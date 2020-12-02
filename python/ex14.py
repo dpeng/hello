@@ -1,6 +1,6 @@
 from sys import argv
 
-script, user_name = argv
+script, user_name = argv# pylint: disable=unbalanced-tuple-unpacking
 prompt = '>'
 
 print ("Hi %s, I'm the %s script." % (user_name, script))

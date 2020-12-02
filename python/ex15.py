@@ -1,6 +1,6 @@
 from sys import argv
 
-script, filename = argv
+script, filename = argv# pylint: disable=unbalanced-tuple-unpacking
 
 txt = open(filename)
 

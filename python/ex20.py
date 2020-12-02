@@ -1,6 +1,6 @@
 from sys import argv
 
-script, input_file = argv
+script, input_file = argv# pylint: disable=unbalanced-tuple-unpacking
 
 def print_all( f ):
 	print (f.read())

@@ -1,7 +1,7 @@
-print "Mary had a little lamb."
-print "It's fleece was white as %s." % 'snow'
-print "And everywhere that Mary went."
-print "." *10 # print ten .??
+print ("Mary had a little lamb.")
+print ("It's fleece was white as %s." % 'snow')
+print ("And everywhere that Mary went.")
+print ("." *10) # print ten .??
 
 end1 = "C"
 end2 = "h"
@@ -17,5 +17,5 @@ end11 = "e"
 end12 = "r"
 
 #watch taht comma at the end. try removing it to see what happened
-print end1 + end2 + end3 + end4 + end5 + end6
-print end7 + end8 + end9 + end10 + end11 + end12
+print (end1 + end2 + end3 + end4 + end5 + end6)
+print (end7 + end8 + end9 + end10 + end11 + end12)

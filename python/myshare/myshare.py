@@ -11,6 +11,7 @@ def get_data_print():
     #data = data.sort_values(by=["date"], ascending=True)
     #data = ts.get_realtime_quotes('601066')
     pd.set_option('display.max_columns', None)
+    formatSpace = '   '
     for num in range(0,20):
         rtData = ts.get_realtime_quotes(['sh', 'sz', '600679', '002074', '110075', '370568']) 
 
@@ -39,24 +40,32 @@ def get_data_print():
         gxgkPrecent = (gxgkCurrentPrice - gxgkPreClosePrice)/gxgkPreClosePrice
         nhzzPrecent = (nhzzCurrentPrice - nhzzPreClosePrice)/nhzzPreClosePrice
 
-        TotalShare   = shfhCurrentPrice * shfhShareCount + gxgkCurrentPrice * gxgkShareCount + \
-            nhzzCurrentPrice *nhzzShareCount + myAccountleft
+        TotalShare   = shfhCurrentPrice * shfhShareCount + \
+                       gxgkCurrentPrice * gxgkShareCount + \
+                       nhzzCurrentPrice * nhzzShareCount + \
+                       myAccountleft
         ToadyBenefit = (shfhCurrentPrice - shfhPreClosePrice) * shfhShareCount + \
-            (gxgkCurrentPrice - gxgkPreClosePrice) * gxgkShareCount + (nhzzCurrentPrice - nhzzPreClosePrice) * nhzzShareCount
+                       (gxgkCurrentPrice - gxgkPreClosePrice) * gxgkShareCount + \
+                       (nhzzCurrentPrice - nhzzPreClosePrice) * nhzzShareCount
         TotalBenifit = TotalShare - investCount
 
-        print(currentTime, '==> shfh:{:.2f}%'.format(shfhPrecent*100),'      ','gxgk:{:.2f}%'.format(gxgkPrecent*100),'      ',\
-            'nhzz:{:.2f}%'.format(nhzzPrecent*100),'      ',\
-            'Benefit:{:.2f}'.format(ToadyBenefit),'      ','{:.2f}'.format(TotalBenifit))
-        time.sleep(5)
+        print(currentTime, '==> shfh:{:.2f}%'.format(shfhPrecent*100), formatSpace ,\
+                               'gxgk:{:.2f}%'.format(gxgkPrecent*100), formatSpace ,\
+                               'nhzz:{:.2f}%'.format(nhzzPrecent*100), formatSpace ,\
+                               'Benefit:{:.2f}'.format(ToadyBenefit), formatSpace ,'{:.2f}'.format(TotalBenifit))
+        time.sleep(0)
 
         # write result to file per ten times
         if num%10 == 9:
             fileName = currentDate + ".txt"
             with open(fileName,"a") as file:
-                file.write(str(arrays[1][1]) + "       "+ str(round(TotalShare, 2)) + "       "+ \
-                    str(round(shfhPrecent*100, 2)) + "       "+ str(round(gxgkPrecent*100, 2)) + "       " + str(round(nhzzPrecent*100, 2)) + "       " +\
-                        str(round(ToadyBenefit, 2)) + "       "+ str(round(TotalBenifit, 2)) + "\n")
+                file.write(str(arrays[1][1]) + formatSpace + \
+                    str(round(TotalShare     , 2)) + formatSpace + \
+                    str(round(shfhPrecent*100, 2)) + formatSpace + \
+                    str(round(gxgkPrecent*100, 2)) + formatSpace  + \
+                    str(round(nhzzPrecent*100, 2)) + formatSpace  +\
+                    str(round(ToadyBenefit   , 2)) + formatSpace + \
+                    str(round(TotalBenifit   , 2)) + "\n")
 
 if __name__ == "__main__":
     #print("start...", end="")

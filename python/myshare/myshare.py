@@ -10,9 +10,9 @@ def get_data_print():
     #data = ts.get_hist_data("601066", start="2020-10-01", end="2020-10-29")
     #data = data.sort_values(by=["date"], ascending=True)
     #data = ts.get_realtime_quotes('601066')
-
-    for num in range(0,100):
-        rtData = ts.get_realtime_quotes(['sh', 'sz', '600679', '002074', '110075']) 
+    pd.set_option('display.max_columns', None)
+    for num in range(0,20):
+        rtData = ts.get_realtime_quotes(['sh', 'sz', '600679', '002074', '110075', '370568']) 
 
         rtDataFormart = rtData[['code','time','open', 'pre_close','price','bid','ask','volume','amount','date']]
 

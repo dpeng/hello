@@ -11,9 +11,9 @@ def get_data_print():
     #data = data.sort_values(by=["date"], ascending=True)
     #data = ts.get_realtime_quotes('601066')
     pd.set_option('display.max_columns', None)
-    formatSpace = '   '
-    for num in range(0,20):
-        rtData = ts.get_realtime_quotes(['sh', 'sz', '600679', '002074', '110075', '370568']) 
+    formatSpace = '  '
+    for num in range(0,500):
+        rtData = ts.get_realtime_quotes(['sh', 'sz', '002739', '002244', '600814']) 
 
         rtDataFormart = rtData[['code','time','open', 'pre_close','price','bid','ask','volume','amount','date']]
 
@@ -21,39 +21,40 @@ def get_data_print():
             print(rtDataFormart)
         arrays = pd.DataFrame(rtDataFormart.to_numpy())
         #print(arrays)
-        shfhCurrentPrice  = float(arrays[4][2])
-        gxgkCurrentPrice  = float(arrays[4][3])
-        nhzzCurrentPrice  = float(arrays[4][4])
-        shfhPreClosePrice = float(arrays[3][2])
-        gxgkPreClosePrice = float(arrays[3][3])
-        nhzzPreClosePrice = float(arrays[3][4])
+        wddyCurrentPrice  = float(arrays[4][2])
+        bjjtCurrentPrice  = float(arrays[4][3])
+        hzjbCurrentPrice  = float(arrays[4][4])
+        wddyPreClosePrice = float(arrays[3][2])
+        bjjtPreClosePrice = float(arrays[3][3])
+        hzjbPreClosePrice = float(arrays[3][4])
         currentTime       =  arrays[1][1]
         currentDate       =  arrays[9][1]
 
-        shfhShareCount  = 3500.00
-        gxgkShareCount  = 1600.00
-        nhzzShareCount  = 10.00
-        myAccountleft   = 7.01
-        investCount     = 100000.00
+        wddyShareCount  = 1200.00
+        bjjtShareCount  = 2800.00
+        hzjbShareCount  = 2500.00
+        myAccountleft   = 183.95
+        investCount     = 50000.00
 
-        shfhPrecent = (shfhCurrentPrice - shfhPreClosePrice)/shfhPreClosePrice
-        gxgkPrecent = (gxgkCurrentPrice - gxgkPreClosePrice)/gxgkPreClosePrice
-        nhzzPrecent = (nhzzCurrentPrice - nhzzPreClosePrice)/nhzzPreClosePrice
+        wddyPrecent = (wddyCurrentPrice - wddyPreClosePrice)/wddyPreClosePrice
+        bjjtPrecent = (bjjtCurrentPrice - bjjtPreClosePrice)/bjjtPreClosePrice
+        hzjbPrecent = (hzjbCurrentPrice - hzjbPreClosePrice)/hzjbPreClosePrice
 
-        TotalShare   = shfhCurrentPrice * shfhShareCount + \
-                       gxgkCurrentPrice * gxgkShareCount + \
-                       nhzzCurrentPrice * nhzzShareCount + \
+        TotalShare   = wddyCurrentPrice * wddyShareCount + \
+                       bjjtCurrentPrice * bjjtShareCount + \
+                       hzjbCurrentPrice * hzjbShareCount + \
                        myAccountleft
-        ToadyBenefit = (shfhCurrentPrice - shfhPreClosePrice) * shfhShareCount + \
-                       (gxgkCurrentPrice - gxgkPreClosePrice) * gxgkShareCount + \
-                       (nhzzCurrentPrice - nhzzPreClosePrice) * nhzzShareCount
+        ToadyBenefit = (wddyCurrentPrice - wddyPreClosePrice) * wddyShareCount + \
+                       (bjjtCurrentPrice - bjjtPreClosePrice) * bjjtShareCount + \
+                       (hzjbCurrentPrice - hzjbPreClosePrice) * hzjbShareCount
         TotalBenifit = TotalShare - investCount
 
-        print(currentTime, '==> shfh:{:.2f}%'.format(shfhPrecent*100), formatSpace ,\
-                               'gxgk:{:.2f}%'.format(gxgkPrecent*100), formatSpace ,\
-                               'nhzz:{:.2f}%'.format(nhzzPrecent*100), formatSpace ,\
-                               'Benefit:{:.2f}'.format(ToadyBenefit), formatSpace ,'{:.2f}'.format(TotalBenifit))
-        time.sleep(0)
+        print(currentTime,  'wddy:{:.2f} {:.2f}%'.format(wddyCurrentPrice, wddyPrecent*100), formatSpace ,\
+                            'bjjt:{:.2f} {:.2f}%'.format(bjjtCurrentPrice, bjjtPrecent*100), formatSpace ,\
+                            'hzjb:{:.2f} {:.2f}%'.format(hzjbCurrentPrice, hzjbPrecent*100), formatSpace ,\
+                            'pro:{:.2f}'.format(ToadyBenefit), '{:.2f}'.format(TotalBenifit)
+            )
+        time.sleep(3)
 
         # write result to file per ten times
         if num%10 == 9:
@@ -61,9 +62,9 @@ def get_data_print():
             with open(fileName,"a") as file:
                 file.write(str(arrays[1][1]) + formatSpace + \
                     str(round(TotalShare     , 2)) + formatSpace + \
-                    str(round(shfhPrecent*100, 2)) + formatSpace + \
-                    str(round(gxgkPrecent*100, 2)) + formatSpace  + \
-                    str(round(nhzzPrecent*100, 2)) + formatSpace  +\
+                    str(round(wddyPrecent*100, 2)) + formatSpace + \
+                    str(round(bjjtPrecent*100, 2)) + formatSpace  + \
+                    str(round(hzjbPrecent*100, 2)) + formatSpace  +\
                     str(round(ToadyBenefit   , 2)) + formatSpace + \
                     str(round(TotalBenifit   , 2)) + "\n")
 

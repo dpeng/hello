@@ -6,12 +6,18 @@ import tushare as ts
 import pandas as pd
 import time
 
+def print_with_color(var, flag):
+    if(var < 0.0):
+        print ('%s%s%s%s' % ("\033[32m", '{:.2f}'.format(var), flag, "\033[0m"), end='')  #green
+    else:
+        print ('%s%s%s%s' % ("\033[31m", '{:.2f}'.format(var), flag, "\033[0m"), end='')  #red
+        
+
 def get_data_print():
     #data = ts.get_hist_data("601066", start="2020-10-01", end="2020-10-29")
     #data = data.sort_values(by=["date"], ascending=True)
     #data = ts.get_realtime_quotes('601066')
     pd.set_option('display.max_columns', None)
-    formatSpace = '  '
     for num in range(0,300):
         rtData = ts.get_realtime_quotes(['sh', 'sz', '600893','600398', '000966']) 
         rtDataFormart = rtData[['code','time','open', 'pre_close','price','bid','ask','volume','amount','date']]
@@ -35,34 +41,27 @@ def get_data_print():
         
         print(currentTime, end=' ')
         for i in range (0,3):
-            print(stockName[i], end='')
+            print(stockName[i], '' ,end='')
             currentPrice[i]   = float(arrays[4][i+2])
             preClosePrice[i]  = float(arrays[3][i+2])
             vibratePrecent[i] = (currentPrice[i] - preClosePrice[i])/preClosePrice[i]
             TotalShare       += currentPrice[i]*shareCount[i]
             ToadyBenefit     += (currentPrice[i] - preClosePrice[i]) * shareCount[i]
-            if(vibratePrecent[i] < 0.0):
-                print ('%s %s %s' % ("\033[0;32;40m", '{:.2f}%'.format(vibratePrecent[i]*100), "\033[0m"), end=' ')  #green
-            else:
-                print ('%s %s %s' % ("\033[0;31;40m", '{:.2f}%'.format(vibratePrecent[i]*100), "\033[0m"), end=' ')  #red
-            print(formatSpace, end='')
+            print_with_color(vibratePrecent[i]*100, '%')
+            print('    ',end='')
         TotalShare           += myAccountleft
         TotalBenifit          = TotalShare - investCount
-        print("pro", end='')
-        if(ToadyBenefit < 0.0):
-            print ('%s %s %s' % ("\033[0;32;40m", '{:.2f}'.format(ToadyBenefit), "\033[0m"), end='')  #green
-        else:
-            print ('%s %s %s' % ("\033[0;31;40m", '{:.2f}'.format(ToadyBenefit), "\033[0m"), end='')  #red
-        if(TotalBenifit < 0.0):
-            print ('%s %s %s' % ("\033[0;32;40m", '{:.2f}'.format(TotalBenifit), "\033[0m"))  #green
-        else:
-            print ('%s %s %s' % ("\033[0;31;40m", '{:.2f}'.format(TotalBenifit), "\033[0m"))  #red
+        print("pro ", end='')
+        print_with_color(ToadyBenefit, '')
+        print(' ' ,end='')
+        print_with_color(TotalBenifit, '')
+        print() # new line
         
-        #print(currentTime,  stockName[0], '{:.2f}%'.format(vibratePrecent[0]*100), formatSpace ,\
-        #                    stockName[1], '{:.2f}%'.format(vibratePrecent[1]*100), formatSpace ,\
-        #                    stockName[2], '{:.2f}%'.format(vibratePrecent[2]*100), formatSpace ,\
-        #                    stockName[3], '{:.2f}%'.format(vibratePrecent[3]*100), formatSpace ,\
-        #                    stockName[4], '{:.2f}%'.format(vibratePrecent[4]*100), formatSpace ,\
+        #print(currentTime,  stockName[0], '{:.2f}%'.format(vibratePrecent[0]*100), '  ' ,\
+        #                    stockName[1], '{:.2f}%'.format(vibratePrecent[1]*100), '  ' ,\
+        #                    stockName[2], '{:.2f}%'.format(vibratePrecent[2]*100), '  ' ,\
+        #                    stockName[3], '{:.2f}%'.format(vibratePrecent[3]*100), '  ' ,\
+        #                    stockName[4], '{:.2f}%'.format(vibratePrecent[4]*100), '  ' ,\
         #                    'pro {:.2f}'.format(ToadyBenefit), '{:.2f}'.format(TotalBenifit))
         time.sleep(5)
 
@@ -70,14 +69,14 @@ def get_data_print():
         if num%10 == 9:
             fileName = currentDate + ".txt"
             with open(fileName,"a") as file:
-                file.write(str(arrays[1][1])             + formatSpace + \
-                    str(round(TotalShare     , 2))       + formatSpace + \
-                    str(round(vibratePrecent[0]*100, 2)) + formatSpace + \
-                    str(round(vibratePrecent[1]*100, 2)) + formatSpace + \
-                    str(round(vibratePrecent[2]*100, 2)) + formatSpace + \
-                    str(round(vibratePrecent[3]*100, 2)) + formatSpace + \
-                    str(round(vibratePrecent[4]*100, 2)) + formatSpace + \
-                    str(round(ToadyBenefit   , 2))       + formatSpace + \
+                file.write(str(arrays[1][1])             + '  ' + \
+                    str(round(TotalShare     , 2))       + '  ' + \
+                    str(round(vibratePrecent[0]*100, 2)) + '  ' + \
+                    str(round(vibratePrecent[1]*100, 2)) + '  ' + \
+                    str(round(vibratePrecent[2]*100, 2)) + '  ' + \
+                    str(round(vibratePrecent[3]*100, 2)) + '  ' + \
+                    str(round(vibratePrecent[4]*100, 2)) + '  ' + \
+                    str(round(ToadyBenefit   , 2))       + '  ' + \
                     str(round(TotalBenifit   , 2))       + "\n")
 
 if __name__ == "__main__":

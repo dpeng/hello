@@ -19,13 +19,13 @@ def get_data_print():
     #data = ts.get_realtime_quotes('601066')
     pd.set_option('display.max_columns', None)
     for num in range(0,300):
-        rtData = ts.get_realtime_quotes(['sh', 'sz', '600893','600398', '000966']) 
+        rtData = ts.get_realtime_quotes(['sh', '600893', '600398', '000966']) 
         rtDataFormart = rtData[['code','time','open', 'pre_close','price','bid','ask','volume','amount','date']]
 
         myAccountleft   = 44009.74
         investCount     = 100000.00
-        stockName       = ('hfdl', 'hlzj', 'cydl', '', '')
-        shareCount      = (500.00, 2600.00, 1200.00, 0.00, 0.00)
+        stockName       = ('sh', 'hfdl', 'hlzj', 'cydl', '', '')
+        shareCount      = (0.00,500.00, 2600.00, 1200.00, 0.00)
         currentPrice    = [0.00, 0.00, 0.00, 0.00, 0.00]
         preClosePrice   = [0.00, 0.00, 0.00, 0.00, 0.00]
         vibratePrecent  = [0.00, 0.00, 0.00, 0.00, 0.00]
@@ -40,15 +40,15 @@ def get_data_print():
         currentDate     =  arrays[9][1]
         
         print(currentTime, end=' ')
-        for i in range (0,3):
+        for i in range (0,4):
             print(stockName[i], '' ,end='')
-            currentPrice[i]   = float(arrays[4][i+2])
-            preClosePrice[i]  = float(arrays[3][i+2])
+            currentPrice[i]   = float(arrays[4][i])
+            preClosePrice[i]  = float(arrays[3][i])
             vibratePrecent[i] = (currentPrice[i] - preClosePrice[i])/preClosePrice[i]
             TotalShare       += currentPrice[i]*shareCount[i]
             ToadyBenefit     += (currentPrice[i] - preClosePrice[i]) * shareCount[i]
             print_with_color(vibratePrecent[i]*100, '%')
-            print('    ',end='')
+            print('  ',end='')
         TotalShare           += myAccountleft
         TotalBenifit          = TotalShare - investCount
         print("pro ", end='')

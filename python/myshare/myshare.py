@@ -19,16 +19,16 @@ def get_data_print():
     #data = ts.get_realtime_quotes('601066')
     pd.set_option('display.max_columns', None)
     for num in range(0,300):
-        rtData = ts.get_realtime_quotes(['sh', '600893', '600398', '000966']) 
+        rtData = ts.get_realtime_quotes(['sh', '600893', '000966', '300999', '300015', '300750', '']) 
         rtDataFormart = rtData[['code','time','open', 'pre_close','price','bid','ask','volume','amount','date']]
 
-        myAccountleft   = 44009.74
+        myAccountleft   = 2151.79
         investCount     = 100000.00
-        stockName       = ('sh', 'hfdl', 'hlzj', 'cydl', '', '')
-        shareCount      = (0.00,500.00, 2600.00, 1200.00, 0.00)
-        currentPrice    = [0.00, 0.00, 0.00, 0.00, 0.00]
-        preClosePrice   = [0.00, 0.00, 0.00, 0.00, 0.00]
-        vibratePrecent  = [0.00, 0.00, 0.00, 0.00, 0.00]
+        stockName       = ('', 'hfdl', 'cydl', 'jly', 'aeyk', 'ndsd', '')
+        shareCount      = (0.00,500.00, 1200.00, 100.00, 300.00, 100.00, 0.00)
+        currentPrice    = [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00]
+        preClosePrice   = [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00]
+        vibratePrecent  = [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00]
         TotalShare      = 0.00
         ToadyBenefit    = 0.00
         TotalBenifit    = 0.00
@@ -39,8 +39,8 @@ def get_data_print():
         currentTime     =  arrays[1][1]
         currentDate     =  arrays[9][1]
         
-        print(currentTime, end=' ')
-        for i in range (0,4):
+        print(currentTime, end='')
+        for i in range (0,6):
             print(stockName[i], '' ,end='')
             currentPrice[i]   = float(arrays[4][i])
             preClosePrice[i]  = float(arrays[3][i])
@@ -76,6 +76,7 @@ def get_data_print():
                     str(round(vibratePrecent[2]*100, 2)) + '  ' + \
                     str(round(vibratePrecent[3]*100, 2)) + '  ' + \
                     str(round(vibratePrecent[4]*100, 2)) + '  ' + \
+                    str(round(vibratePrecent[5]*100, 2)) + '  ' + \
                     str(round(ToadyBenefit   , 2))       + '  ' + \
                     str(round(TotalBenifit   , 2))       + "\n")
 

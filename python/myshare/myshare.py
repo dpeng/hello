@@ -11,34 +11,31 @@ def print_with_color(var, flag):
         print ('%s%s%s%s' % ("\033[32m", '{:.2f}'.format(var), flag, "\033[0m"), end='')  #green
     else:
         print ('%s%s%s%s' % ("\033[31m", '{:.2f}'.format(var), flag, "\033[0m"), end='')  #red
-        
 
 def get_data_print():
     #data = ts.get_hist_data("601066", start="2020-10-01", end="2020-10-29")
     #data = data.sort_values(by=["date"], ascending=True)
-    #data = ts.get_realtime_quotes('601066')
     pd.set_option('display.max_columns', None)
     for num in range(0,300):
-        rtData = ts.get_realtime_quotes(['sh', '600893', '000966', '300999', '300015', '300750', '']) 
-        rtDataFormart = rtData[['code','time','open', 'pre_close','price','bid','ask','volume','amount','date']]
 
-        myAccountleft   = 2151.79
+        myAccountleft   = 425.89
         investCount     = 100000.00
-        stockName       = ('', 'hfdl', 'cydl', 'jly', 'aeyk', 'ndsd', '')
-        shareCount      = (0.00,500.00, 1200.00, 100.00, 300.00, 100.00, 0.00)
+        stockName       = (''    , 'jly'     , 'cydl'    , 'hfdl'    , 'aeyk'    , 'ndsd'    ,   '')
+        stockCode       = ['sh'  , '300999'  , '000966'  , '600893'  , '300015'  , '300750'  ,   '']
+        shareCount      = (0.00  ,  100.00   ,  1400.00  ,  500.00   ,  300.00   ,  100.00   ,   0.00)
         currentPrice    = [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00]
         preClosePrice   = [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00]
         vibratePrecent  = [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00]
         TotalShare      = 0.00
         ToadyBenefit    = 0.00
         TotalBenifit    = 0.00
+        rtData = ts.get_realtime_quotes(stockCode) 
+        rtDataFormart = rtData[['code','time','open', 'pre_close','price','bid','ask','volume','amount','date']]
 
-        #if num == 0 :
-        #    print(rtDataFormart)
         arrays = pd.DataFrame(rtDataFormart.to_numpy())
         currentTime     =  arrays[1][1]
         currentDate     =  arrays[9][1]
-        
+
         print(currentTime, end='')
         for i in range (0,6):
             print(stockName[i], '' ,end='')
@@ -56,13 +53,7 @@ def get_data_print():
         print(' ' ,end='')
         print_with_color(TotalBenifit, '')
         print() # new line
-        
-        #print(currentTime,  stockName[0], '{:.2f}%'.format(vibratePrecent[0]*100), '  ' ,\
-        #                    stockName[1], '{:.2f}%'.format(vibratePrecent[1]*100), '  ' ,\
-        #                    stockName[2], '{:.2f}%'.format(vibratePrecent[2]*100), '  ' ,\
-        #                    stockName[3], '{:.2f}%'.format(vibratePrecent[3]*100), '  ' ,\
-        #                    stockName[4], '{:.2f}%'.format(vibratePrecent[4]*100), '  ' ,\
-        #                    'pro {:.2f}'.format(ToadyBenefit), '{:.2f}'.format(TotalBenifit))
+ 
         time.sleep(5)
 
         # write result to file per ten times

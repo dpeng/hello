@@ -6,8 +6,8 @@ import tushare as ts
 import pandas as pd
 import time
 
-def print_with_color(var, flag):
-    if(var < 0.0):
+def print_with_color(var, target, flag):
+    if(var < target):
         print ('%s%s%s%s' % ("\033[32m", '{:.2f}'.format(var), flag, "\033[0m"), end='')  #green
     else:
         print ('%s%s%s%s' % ("\033[31m", '{:.2f}'.format(var), flag, "\033[0m"), end='')  #red
@@ -16,13 +16,14 @@ def get_data_print():
     #data = ts.get_hist_data("601066", start="2020-10-01", end="2020-10-29")
     #data = data.sort_values(by=["date"], ascending=True)
     pd.set_option('display.max_columns', None)
-    for num in range(0,300):
+    # setting init account information
+    myAccountleft   = 173.53
+    investCount     = 100000.00
+    stockName       = (''    , 'hydl'     , 'qszy'    , 'cydl'    , 'xzyy'    , ''    ,   '')
+    stockCode       = ['sh'  , '600744'  , '600103'  , '000966'  , '600211'  , ''  ,   '']
+    shareCount      = (0.00  ,  3200.00   ,  8600.00  ,  1700.00   ,  300.00   ,  0.00   ,   0.00)
 
-        myAccountleft   = 425.89
-        investCount     = 100000.00
-        stockName       = (''    , 'jly'     , 'cydl'    , 'hfdl'    , 'aeyk'    , 'ndsd'    ,   '')
-        stockCode       = ['sh'  , '300999'  , '000966'  , '600893'  , '300015'  , '300750'  ,   '']
-        shareCount      = (0.00  ,  100.00   ,  1400.00  ,  500.00   ,  300.00   ,  100.00   ,   0.00)
+    for num in range(0,300):
         currentPrice    = [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00]
         preClosePrice   = [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00]
         vibratePrecent  = [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00]
@@ -37,21 +38,24 @@ def get_data_print():
         currentDate     =  arrays[9][1]
 
         print(currentTime, end='')
-        for i in range (0,6):
+        for i in range (0,5):
             print(stockName[i], '' ,end='')
             currentPrice[i]   = float(arrays[4][i])
             preClosePrice[i]  = float(arrays[3][i])
             vibratePrecent[i] = (currentPrice[i] - preClosePrice[i])/preClosePrice[i]
             TotalShare       += currentPrice[i]*shareCount[i]
             ToadyBenefit     += (currentPrice[i] - preClosePrice[i]) * shareCount[i]
-            print_with_color(vibratePrecent[i]*100, '%')
+            if(i < 1):
+                print_with_color(currentPrice[i], preClosePrice[i], '')
+            else:
+                print_with_color(vibratePrecent[i]*100, 0.0, '%')
             print('  ',end='')
         TotalShare           += myAccountleft
         TotalBenifit          = TotalShare - investCount
         print("pro ", end='')
-        print_with_color(ToadyBenefit, '')
+        print_with_color(ToadyBenefit, 0.0, '')
         print(' ' ,end='')
-        print_with_color(TotalBenifit, '')
+        print_with_color(TotalBenifit, 0.0, '')
         print() # new line
  
         time.sleep(5)
@@ -67,7 +71,7 @@ def get_data_print():
                     str(round(vibratePrecent[2]*100, 2)) + '  ' + \
                     str(round(vibratePrecent[3]*100, 2)) + '  ' + \
                     str(round(vibratePrecent[4]*100, 2)) + '  ' + \
-                    str(round(vibratePrecent[5]*100, 2)) + '  ' + \
+                    #str(round(vibratePrecent[5]*100, 2)) + '  ' + \
                     str(round(ToadyBenefit   , 2))       + '  ' + \
                     str(round(TotalBenifit   , 2))       + "\n")
 

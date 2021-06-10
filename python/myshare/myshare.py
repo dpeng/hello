@@ -18,11 +18,11 @@ def get_data_print():
     #data = data.sort_values(by=["date"], ascending=True)
     pd.set_option('display.max_columns', None)
     # setting init account information
-    myAccountleft   = 2488.75
+    myAccountleft   = 1394.58
     investCount     = 100000.00
-    stockName       = (''    , 'hydl'     , 'thkj '  , 'xzyy '   ,   'jly  '     , ''       , ''       )
-    stockCode       = ('sh'  , '600744'   , '603025' , '600211'  ,   '300999'    , ''       , ''       )
-    shareCount      = (0.00  ,  3200.00   ,  500.00  ,  300.00   ,    200.00     , 0.00     , 0.00     )
+    stockName       = (''    , 'hydl'     , 'thfw '  ,   'jly  '     ,  'slw  '    , ''       , ''       )
+    stockCode       = ('sh'  , '600744'   , '300397' ,   '300999'    ,  '600460'   , ''       , ''       )
+    shareCount      = (0.00  ,  3200.00   ,  1200.00 ,    200.00     ,  400.00     , 0.00     , 0.00     )
 
     for num in range(0,300):
         currentPrice    = [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00]

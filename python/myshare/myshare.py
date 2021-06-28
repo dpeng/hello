@@ -4,7 +4,7 @@
 
 import tushare as ts
 import pandas as pd
-import time, rumps, threading
+import time, rumps
 
 outputNameOrCodeCount = 0
 def print_with_color(var, target, flag):
@@ -14,16 +14,16 @@ def print_with_color(var, target, flag):
     else:
         print ('%s%s%s%s' % ("\033[31m", '{:.2f}'.format(abs(var)), flag, "\033[0m"), end='')  #red
 
-def get_data_print(self):
+def get_data_print(_):
     #data = ts.get_hist_data("601066", start="2020-10-01", end="2020-10-29")
     #data = data.sort_values(by=["date"], ascending=True)
     pd.set_option('display.max_columns', None)
     # setting init account information
-    myAccountleft   = 1692.21
+    myAccountleft   = 1013.45
     investCount     = 100000.00
-    stockName       = (''    , 'wczd '    , 'thfw '  ,  'slw  '    ,   'jyjg '     ,   ''       ,   ''       )
-    stockCode       = ('sh'  , '600704'   , '300397' ,  '600460'   ,   '300220'    ,   ''       ,   ''       )
-    shareCount      = (0.00  ,  3000.00   ,  1200.00 ,  400.00     ,    1000.00    ,   0.00     ,   0.00     )
+    stockName       = (''    , 'wczd'    , 'yjdq '  ,  'slw  '    ,   'rhrj '     ,   ''       ,   ''       )
+    stockCode       = ('sh'  , '600704'   , '300820' ,  '600460'   ,   '300339'    ,   ''       ,   ''       )
+    shareCount      = (0.00  ,  3000.00   ,  500.00  ,  400.00     ,    300.00     ,   0.00     ,   0.00     )
 
     currentPrice    = [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00]
     preClosePrice   = [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00]
@@ -74,16 +74,32 @@ def get_data_print(self):
     print(' ' ,end='')
     print_with_color(TotalBenifit, 0.0, '')
     print() # new line
-    self.title = str('{:.0f} {:.0f}'.format(ToadyBenefit, TotalBenifit))
 
-def refresh(self):
-    threading.Timer(5, refresh, [self, ]).start()
-    get_data_print(self)
+    #output brief information at menu bar of macOS
+    rumpsSelf.title = str('{:.2f}|{:.2f}'.format(ToadyBenefit/1000, TotalBenifit/1000))
 
+@rumps.clicked('Change timer')
+def changeit(_):
+    response = rumps.Window('Enter new interval').run()
+    if response.clicked:
+        rumpsTimer.interval = int(response.text)
+
+@rumps.clicked('Start timer')
+def start_timer(_):
+    rumpsTimer.start()
+
+@rumps.clicked('Stop timer')
+def stop_timer(_):
+    rumpsTimer.stop()
+    rumpsSelf.title = str('status')
+    
 class macosMenuBar(rumps.App):
     def __init__(self):
-        super(macosMenuBar, self).__init__("", "")
-        refresh(self)
+        super(macosMenuBar, self).__init__("status", title=None, icon=None, template=None, \
+            menu=('Change timer', 'Start timer', 'Stop timer'), quit_button='Exit')
+        rumpsTimer.start()
 
 if __name__ == "__main__":
-    macosMenuBar().run()
+    rumpsTimer = rumps.Timer(get_data_print, 5)
+    rumpsSelf = macosMenuBar()
+    rumpsSelf.run()

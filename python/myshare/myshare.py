@@ -6,7 +6,6 @@ import tushare as ts
 import pandas as pd
 import time, rumps
 
-outputNameOrCodeCount = 0
 def print_with_color(var, target, flag):
     if(var < target):
         #print ('%s%s%s%s' % ("\033[32m", '{:.2f}'.format(abs(var)), flag, "\033[0m"), end='')  #green
@@ -25,9 +24,9 @@ def get_data_print(_):
     rtData          = []
     try:
         rtData = ts.get_realtime_quotes(stockCode) 
-    except:
-        print("Oops!  Network connetion error.  Will ry again 5 seconds later...")
-        time.sleep(5)
+    except Exception as ex:
+        print("Oops!  Exception<<%s>>detected, Will ry again 5 seconds later... "%ex)
+        #time.sleep(5)
         return
 
     rtDataFormart = rtData[['code','time','open', 'pre_close','price','bid','ask','volume','amount','date']]
@@ -38,7 +37,6 @@ def get_data_print(_):
 
     print(currentTime, '', end='')
     i = 0
-    global outputNameOrCodeCount
     while stockCode[i] != '':
         currentPrice[i]   = float(arrays[4][i])
         preClosePrice[i]  = float(arrays[3][i])
@@ -50,14 +48,14 @@ def get_data_print(_):
             print_with_color(currentPrice[i], preClosePrice[i], '') # output szzs as refer
         else:
             #print_with_color(currentPrice[i], preClosePrice[i], '_') # output currentPrice with color
-            if (outputNameOrCodeCount % 10):
+            if (rumpsTimer.count % 10):
                 print('{:.2f}'.format(currentPrice[i]), end='') #output current Price
             else:
                 print(stockName[i], end='')
             print_with_color(vibratePrecent[i]*100, 0.0, '%')
         print('  ',end='')
         i = i + 1
-    outputNameOrCodeCount = outputNameOrCodeCount + 1
+    rumpsTimer.count = rumpsTimer.count + 1
     TotalShare           += myAccountleft
     TotalBenifit          = TotalShare - investCount
     print("pro ", end='')
@@ -93,12 +91,13 @@ class macosMenuBar(rumps.App):
 
 if __name__ == "__main__":
     # setting init account information
-    myAccountleft   = 4339.37
+    myAccountleft   = 3373.25
     investCount     = 100000.00
     stockName       = (''    , 'yjdq '  ,  'slw  '    ,   'lxjm '     ,   'jhqc '        ,   ''       ,   ''       )
     stockCode       = ('sh'  , '300820' ,  '600460'   ,   '002475'    ,   '600418'       ,   ''       ,   ''       )
     shareCount      = (0.00  ,  500.00  ,  400.00     ,    400.00     ,   1300.00        ,   0.00     ,   0.00     )
-
+    
     rumpsTimer = rumps.Timer(get_data_print, 5)
+    rumpsTimer.count = 0
     rumpsSelf = macosMenuBar()
     rumpsSelf.run()

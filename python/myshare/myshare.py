@@ -27,6 +27,7 @@ def get_data_print(_):
     except Exception as ex:
         print("Oops!  Exception<<%s>>detected, Will ry again 5 seconds later... "%ex)
         #time.sleep(5)
+        rumpsSelf.title = str(':-(')
         return
 
     rtDataFormart = rtData[['code','time','open', 'pre_close','price','bid','ask','volume','amount','date']]
@@ -45,7 +46,9 @@ def get_data_print(_):
         ToadyBenefit     += (currentPrice[i] - preClosePrice[i]) * shareCount[i]
 
         if(i < 1):
-            print_with_color(currentPrice[i], preClosePrice[i], '') # output szzs as refer
+            #print_with_color(currentPrice[i], preClosePrice[i], '') # output szzs as refer
+            print('{:.0f}'.format(currentPrice[i]), end='')
+            print_with_color(currentPrice[i] - preClosePrice[i], 0.0, '') # output szzs as refer
         else:
             #print_with_color(currentPrice[i], preClosePrice[i], '_') # output currentPrice with color
             if (rumpsTimer.count % 10):
@@ -82,7 +85,7 @@ def start_timer(_):
 def stop_timer(_):
     rumpsTimer.stop()
     rumpsSelf.title = str(':-)')
-    
+
 class macosMenuBar(rumps.App):
     def __init__(self):
         super(macosMenuBar, self).__init__(":-)", title=None, icon=None, template=None, \
@@ -91,11 +94,11 @@ class macosMenuBar(rumps.App):
 
 if __name__ == "__main__":
     # setting init account information
-    myAccountleft   = 3373.25
+    myAccountleft   = 4231.14
     investCount     = 100000.00
-    stockName       = (''    , 'yjdq '  ,  'slw  '    ,   'lxjm '     ,   'jhqc '        ,   ''       ,   ''       )
-    stockCode       = ('sh'  , '300820' ,  '600460'   ,   '002475'    ,   '600418'       ,   ''       ,   ''       )
-    shareCount      = (0.00  ,  500.00  ,  400.00     ,    400.00     ,   1300.00        ,   0.00     ,   0.00     )
+    stockName       = (''    , 'byd   ' ,  'sagd '    ,   'zxtx '      ,   'dfcf '         ,   ''       ,   ''       )
+    stockCode       = ('sh'  , '002594' ,  '600703'   ,   '000063'     ,   '300059'        ,   ''       ,   ''       )
+    shareCount      = (0.00  ,  100.00  ,  600.00     ,    600.00      ,    700.00         ,   0.00     ,   0.00     )
     
     rumpsTimer = rumps.Timer(get_data_print, 5)
     rumpsTimer.count = 0

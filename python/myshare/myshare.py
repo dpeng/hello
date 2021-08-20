@@ -96,9 +96,9 @@ if __name__ == "__main__":
     # setting init account information
     myAccountleft   = 4231.14
     investCount     = 100000.00
-    stockName       = (''    , 'byd   ' ,  'sagd '    ,   'zxtx '      ,   'dfcf '         ,   ''       ,   ''       )
-    stockCode       = ('sh'  , '002594' ,  '600703'   ,   '000063'     ,   '300059'        ,   ''       ,   ''       )
-    shareCount      = (0.00  ,  100.00  ,  600.00     ,    600.00      ,    700.00         ,   0.00     ,   0.00     )
+    stockName       = (''    , 'byd   ' ,  'sagd '    ,   'syzg '      ,   'mjny '         ,   ''       ,   ''       )
+    stockCode       = ('sh'  , '002594' ,  '600703'   ,   '6000031'     ,   '000723'        ,   ''       ,   ''       )
+    shareCount      = (0.00  ,  100.00  ,  600.00     ,    800.00      ,    1500.00         ,   0.00     ,   0.00     )
     
     rumpsTimer = rumps.Timer(get_data_print, 5)
     rumpsTimer.count = 0

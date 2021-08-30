@@ -25,7 +25,7 @@ def get_data_print(_):
     try:
         rtData = ts.get_realtime_quotes(stockCode) 
     except Exception as ex:
-        print("Oops!  Exception<<%s>>detected, Will ry again 5 seconds later... "%ex)
+        print("Oops!  Exception<<%s>>detected, Will ry again couple of seconds later... "%ex)
         #time.sleep(5)
         rumpsSelf.title = str(':-(')
         return
@@ -94,12 +94,11 @@ class macosMenuBar(rumps.App):
 
 if __name__ == "__main__":
     # setting init account information
-    myAccountleft   = 4231.14
+    myAccountleft   = 2102.01
     investCount     = 100000.00
-    stockName       = (''    , 'byd   ' ,  'sagd '    ,   'syzg '      ,   'mjny '         ,   ''       ,   ''       )
-    stockCode       = ('sh'  , '002594' ,  '600703'   ,   '6000031'     ,   '000723'        ,   ''       ,   ''       )
-    shareCount      = (0.00  ,  100.00  ,  600.00     ,    800.00      ,    1500.00         ,   0.00     ,   0.00     )
-    
+    stockName       = (''    , 'xkgf '  ,  'sagd '    ,   'syzg '      ,   'mjny '         ,   ''       ,   ''       )
+    stockCode       = ('sh'  , '601127' ,  '600703'   ,   '600031'     ,   '000723'        ,   ''       ,   ''       )
+    shareCount      = (0.00  ,  400.00  ,  600.00     ,    800.00      ,    1500.00         ,   0.00     ,   0.00     )
     rumpsTimer = rumps.Timer(get_data_print, 5)
     rumpsTimer.count = 0
     rumpsSelf = macosMenuBar()

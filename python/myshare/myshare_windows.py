@@ -8,8 +8,8 @@ import time
 
 def print_with_color(var, target, flag):
     if(var < target):
-        print ('%s%s%s%s' % ("\033[32m", '{:.2f}'.format(abs(var)), flag, "\033[0m"), end='')  #green
-        #print ('%s%s%s%s' % ("\033[34m", '{:.2f}'.format(abs(var)), flag, "\033[0m"), end='')  #blue
+        #print ('%s%s%s%s' % ("\033[32m", '{:.2f}'.format(abs(var)), flag, "\033[0m"), end='')  #green
+        print ('%s%s%s%s' % ("\033[34m", '{:.2f}'.format(abs(var)), flag, "\033[0m"), end='')  #blue
     else:
         print ('%s%s%s%s' % ("\033[31m", '{:.2f}'.format(abs(var)), flag, "\033[0m"), end='')  #red
 
@@ -47,21 +47,24 @@ def get_data_print(_):
         ToadyBenefit     += (currentPrice[i] - preClosePrice[i]) * shareCount[i]
 
         if(i < 1):
+            #print_with_color(currentPrice[i], preClosePrice[i], '') # output szzs as refer
             print('{:.0f}'.format(currentPrice[i]), end='')
             print_with_color(currentPrice[i] - preClosePrice[i], 0.0, '') # output szzs as refer
         else:
+            #print_with_color(currentPrice[i], preClosePrice[i], '_') # output currentPrice with color
             if (countforPrint != 0):
                 print('{:.2f}'.format(currentPrice[i]), end='') #output current Price
                 print_with_color(vibratePrecent[i]*100, 0.0, '%')
             else:
-                print(stockName[i], end='')
+                print(stockName[i], ' ', end='')
         print('  ',end='')
         i = i + 1
-    TotalShare           += myAccountleft
-    TotalBenifit          = TotalShare - investCount
+    #countforPrint = 0
+    TotalShare             += myAccountleft
+    TotalBenifit            = TotalShare - investCount
     print("pro ", end='')
     print_with_color(ToadyBenefit, 0.0, '')
-    #print(' ' , end='')
+    print(' ' , end='')
     print_with_color(TotalBenifit, 0.0, '')
     print() # new line
     time.sleep(3)

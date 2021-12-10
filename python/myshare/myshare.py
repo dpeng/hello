@@ -66,7 +66,7 @@ def get_data_print(_):
     TotalBenifit            = TotalShare - investCount
     print("pro ", end='')
     print_with_color(ToadyBenefit, 0.0, '')
-    print(' ' ,end='')
+    print(' ' , end='')
     print_with_color(TotalBenifit, 0.0, '')
     print() # new line
 

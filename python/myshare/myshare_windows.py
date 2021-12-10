@@ -4,7 +4,7 @@
 
 import tushare as ts
 import pandas as pd
-import time
+import time, os
 
 def print_with_color(var, target, flag):
     if(var < target):
@@ -67,17 +67,23 @@ def get_data_print(_):
     print(' ' , end='')
     print_with_color(TotalBenifit, 0.0, '')
     print() # new line
-    time.sleep(3)
+    time.sleep(4)
 
 
 if __name__ == "__main__":
     # setting init account information
+    print("starting...")
+    print("current proxy was: ",os.getenv('http_proxy'))
+    result = os.system('ping www.baidu.com -n 2')
+    if result != 0:
+        os.environ['http_proxy'] = 'http://cnhanab-proxy001.china.nsn-net.net:8080'
+        print("change proxy to: ",os.getenv('http_proxy'))
     myAccountleft   = 149.78
     investCount     = 100000.00
     stockCode       = ('sh'  , '603893' ,  '603606'  ,   '300017'       ,   '300364'         ,   ''       ,   ''       )
     shareCount      = (0.00  ,  200.00  ,  400.00    ,   5900.00        ,    0.00         ,   0.00     ,   0.00     )
     countforPrint   = 0.0
-    for i in range(300):
+    for i in range(2048):
         get_data_print( countforPrint )
         countforPrint = countforPrint + 1
 

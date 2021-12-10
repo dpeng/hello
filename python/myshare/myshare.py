@@ -4,7 +4,7 @@
 
 import tushare as ts
 import pandas as pd
-import time, rumps
+import time, rumps, os
 
 def print_with_color(var, target, flag):
     if(var < target):
@@ -101,6 +101,12 @@ class macosMenuBar(rumps.App):
 
 if __name__ == "__main__":
     # setting init account information
+    print("starting...")
+    print("current proxy was: ",os.getenv('http_proxy'))
+    result = os.system('ping www.baidu.com -c 2')
+    if result != 0:
+        os.environ['http_proxy'] = 'http://cnhanab-proxy001.china.nsn-net.net:8080'
+        print("change proxy to: ",os.getenv('http_proxy'))
     myAccountleft   = 149.78
     investCount     = 100000.00
     stockCode       = ('sh'  , '603893' ,  '603606'  ,   '300017'       ,   '300364'         ,   ''       ,   ''       )

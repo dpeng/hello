@@ -4,7 +4,8 @@
 
 import tushare as ts
 import pandas as pd
-import time, rumps, os
+import configparser, time, os
+import rumps
 
 def print_with_color(var, target, flag):
     if(var < target):
@@ -102,15 +103,31 @@ class macosMenuBar(rumps.App):
 if __name__ == "__main__":
     # setting init account information
     print("starting...")
-    print("current proxy was: ",os.getenv('http_proxy'))
-    result = os.system('ping www.baidu.com -c 2')
-    if result != 0:
-        os.environ['http_proxy'] = 'http://cnhanab-proxy001.china.nsn-net.net:8080'
-        print("change proxy to: ",os.getenv('http_proxy'))
-    myAccountleft   = 149.78
-    investCount     = 100000.00
-    stockCode       = ('sh'  , '603893' ,  '603606'  ,   '300017'       ,   '300364'         ,   ''       ,   ''       )
-    shareCount      = (0.00  ,  200.00  ,  400.00    ,   5900.00        ,    0.00         ,   0.00     ,   0.00     )
+    config = configparser.ConfigParser()
+    config.read("./config.ini")
+    http_proxy      = config.get("DEFAULT", "http_proxy")
+    myAccountleft   = float(config.get("DEFAULT", "myAccountleft"))
+    investCount     = float(config.get("DEFAULT", "investCount"))
+    code1           = config.get("CODESHARE", "code1")
+    code2           = config.get("CODESHARE", "code2")
+    code3           = config.get("CODESHARE", "code3")
+    code4           = config.get("CODESHARE", "code4")
+    code5           = config.get("CODESHARE", "code5")
+    code6           = config.get("CODESHARE", "code6")
+    code7           = config.get("CODESHARE", "code7")
+    code8           = config.get("CODESHARE", "code8")
+    share1          = float(config.get("CODESHARE", "share1"))
+    share2          = float(config.get("CODESHARE", "share2"))
+    share3          = float(config.get("CODESHARE", "share3"))
+    share4          = float(config.get("CODESHARE", "share4"))
+    share5          = float(config.get("CODESHARE", "share5"))
+    share6          = float(config.get("CODESHARE", "share6"))
+    share7          = float(config.get("CODESHARE", "share7"))
+    share8          = float(config.get("CODESHARE", "share8"))
+    os.environ['http_proxy'] = http_proxy
+
+    stockCode       = ['sh' , code1 , code2 , code3 , code4 , code5 , code6 , code7 , code8 ]
+    shareCount      = [0.00 , share1, share2, share3, share4, share5, share6, share7, share8]
     rumpsTimer      = rumps.Timer(get_data_print, 5)
     rumpsTimer.isDisplayName = 0
     rumpsSelf       = macosMenuBar()

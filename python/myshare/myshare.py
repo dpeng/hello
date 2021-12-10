@@ -56,9 +56,9 @@ def get_data_print(_):
             #print_with_color(currentPrice[i], preClosePrice[i], '_') # output currentPrice with color
             if (rumpsTimer.isDisplayName == 0):
                 print('{:.2f}'.format(currentPrice[i]), end='') #output current Price
+                print_with_color(vibratePrecent[i]*100, 0.0, '%')
             else:
-                print(stockName[i], end='')
-            print_with_color(vibratePrecent[i]*100, 0.0, '%')
+                print(stockName[i], ' ', end='')
         print('  ',end='')
         i = i + 1
     rumpsTimer.isDisplayName = 0

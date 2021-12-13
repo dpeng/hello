@@ -71,7 +71,6 @@ if __name__ == "__main__":
     print("starting...")
     print("tushare version: ", ts.__version__)
     print("pandas version: ", pd.__version__)
-    print("rumps version: ", rumps.__version__)
     config = configparser.ConfigParser()
     config.read("./config.ini")
     http_proxy      = config.get("DEFAULT", "http_proxy")

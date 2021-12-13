@@ -5,6 +5,7 @@
 import tushare as ts
 import pandas as pd
 import configparser, time, os
+import colorama
 
 def print_with_color(var, target, flag):
     if(var < target):
@@ -60,14 +61,13 @@ def get_data_print(_):
         i = i + 1
     print("pro ", end='')
     print_with_color(ToadyBenefit, 0.0, '')
-    print(' ' , end='')
-    print_with_color(TotalShare, 0.0, '')
-    print() # new line
+    print(' ',TotalShare)
     time.sleep(4)
 
 
 if __name__ == "__main__":
     # setting init account information
+    colorama.init(autoreset=True)
     print("starting...")
     config = configparser.ConfigParser()
     config.read("./config.ini")

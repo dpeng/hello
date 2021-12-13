@@ -21,7 +21,6 @@ def get_data_print(_):
     stockName       = [' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' ]
     TotalShare      = 0.00
     ToadyBenefit    = 0.00
-    TotalBenifit    = 0.00
     rtData          = []
     try:
         rtData = ts.get_realtime_quotes(stockCode) 
@@ -59,13 +58,10 @@ def get_data_print(_):
                 print(stockName[i], ' ', end='')
         print('  ',end='')
         i = i + 1
-    #countforPrint = 0
-    TotalShare             += myAccountleft
-    TotalBenifit            = TotalShare - investCount
     print("pro ", end='')
     print_with_color(ToadyBenefit, 0.0, '')
     print(' ' , end='')
-    print_with_color(TotalBenifit, 0.0, '')
+    print_with_color(TotalShare, 0.0, '')
     print() # new line
     time.sleep(4)
 
@@ -76,8 +72,6 @@ if __name__ == "__main__":
     config = configparser.ConfigParser()
     config.read("./config.ini")
     http_proxy      = config.get("DEFAULT", "http_proxy")
-    myAccountleft   = float(config.get("DEFAULT", "myAccountleft"))
-    investCount     = float(config.get("DEFAULT", "investCount"))
     code1           = config.get("CODESHARE", "code1")
     code2           = config.get("CODESHARE", "code2")
     code3           = config.get("CODESHARE", "code3")
@@ -95,6 +89,7 @@ if __name__ == "__main__":
     share7          = float(config.get("CODESHARE", "share7"))
     share8          = float(config.get("CODESHARE", "share8"))
     os.environ['http_proxy'] = http_proxy
+    
     stockCode       = ['sh' , code1 , code2 , code3 , code4 , code5 , code6 , code7 , code8 ]
     shareCount      = [0.00 , share1, share2, share3, share4, share5, share6, share7, share8]
     countforPrint   = 0.0

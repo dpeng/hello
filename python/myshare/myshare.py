@@ -16,10 +16,10 @@ def print_with_color(var, target, flag):
 
 def get_data_print(_):
     pd.set_option('display.max_columns', None)
-    currentPrice    = [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00]
-    preClosePrice   = [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00]
-    vibratePrecent  = [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00]
-    stockName       = [' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' ]
+    currentPrice    = [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00]
+    preClosePrice   = [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00]
+    vibratePrecent  = [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00]
+    stockName       = [' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' ]
     TotalShare      = 0.00
     ToadyBenefit    = 0.00
     TotalBenifit    = 0.00

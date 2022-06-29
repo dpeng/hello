@@ -31,7 +31,6 @@ def load_config_info( ):
     os.environ['http_proxy'] = http_proxy
     stockCode       = ['sh' , code1 , code2 , code3 , code4 , code5 , code6 , code7 , code8 ]
     shareCount      = [0.00 , share1, share2, share3, share4, share5, share6, share7, share8]
-
     return (myAccountleft, investCount, stockCode, shareCount)
 
 def print_with_color(var, target, flag):
@@ -51,7 +50,7 @@ def get_data_print(_):
     ToadyBenefit    = 0.00
     TotalBenifit    = 0.00
     rtData          = []
-    print(shareCount)
+
     try:
         rtData = ts.get_realtime_quotes(stockCode) 
     except Exception as ex:

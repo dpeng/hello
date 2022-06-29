@@ -6,6 +6,33 @@ import tushare as ts
 import pandas as pd
 import configparser, time, os
 import rumps
+def load_config_info( ):
+    config = configparser.ConfigParser()
+    config.read("./config.ini")
+    http_proxy      = config.get("DEFAULT", "http_proxy")
+    myAccountleft   = float(config.get("DEFAULT", "myAccountleft"))
+    investCount     = float(config.get("DEFAULT", "investCount"))
+    code1           = config.get("CODESHARE", "code1")
+    code2           = config.get("CODESHARE", "code2")
+    code3           = config.get("CODESHARE", "code3")
+    code4           = config.get("CODESHARE", "code4")
+    code5           = config.get("CODESHARE", "code5")
+    code6           = config.get("CODESHARE", "code6")
+    code7           = config.get("CODESHARE", "code7")
+    code8           = config.get("CODESHARE", "code8")
+    share1          = float(config.get("CODESHARE", "share1"))
+    share2          = float(config.get("CODESHARE", "share2"))
+    share3          = float(config.get("CODESHARE", "share3"))
+    share4          = float(config.get("CODESHARE", "share4"))
+    share5          = float(config.get("CODESHARE", "share5"))
+    share6          = float(config.get("CODESHARE", "share6"))
+    share7          = float(config.get("CODESHARE", "share7"))
+    share8          = float(config.get("CODESHARE", "share8"))
+    os.environ['http_proxy'] = http_proxy
+    stockCode       = ['sh' , code1 , code2 , code3 , code4 , code5 , code6 , code7 , code8 ]
+    shareCount      = [0.00 , share1, share2, share3, share4, share5, share6, share7, share8]
+
+    return (myAccountleft, investCount, stockCode, shareCount)
 
 def print_with_color(var, target, flag):
     if(var < target):
@@ -24,6 +51,7 @@ def get_data_print(_):
     ToadyBenefit    = 0.00
     TotalBenifit    = 0.00
     rtData          = []
+    print(shareCount)
     try:
         rtData = ts.get_realtime_quotes(stockCode) 
     except Exception as ex:
@@ -44,11 +72,10 @@ def get_data_print(_):
         currentPrice[i]   = float(arrays[4][i])
         preClosePrice[i]  = float(arrays[3][i])
         stockName[i]      = arrays[10][i]
-
         vibratePrecent[i] = (currentPrice[i] - preClosePrice[i])/preClosePrice[i]
         TotalShare       += currentPrice[i]*shareCount[i]
         ToadyBenefit     += (currentPrice[i] - preClosePrice[i]) * shareCount[i]
-
+        
         if(i < 1):
             #print_with_color(currentPrice[i], preClosePrice[i], '') # output szzs as refer
             print('{:.0f}'.format(currentPrice[i]), end='')
@@ -94,10 +121,17 @@ def stop_timer(_):
     rumpsTimer.stop()
     rumpsSelf.title = str(':-)')
 
+@rumps.clicked('Reload Config')
+def reload_config(_):
+    print("reloading...")
+    rumpsSelf.title = str('reloading...')
+    global myAccountleft, investCount, stockCode, shareCount
+    (myAccountleft, investCount, stockCode, shareCount) = load_config_info( )
+    print(shareCount)
 class macosMenuBar(rumps.App):
     def __init__(self):
         super(macosMenuBar, self).__init__(":-)", title=None, icon=None, template=None, \
-            menu=('Change timer', 'Start Monitor', 'Display Name', 'Stop Monitor'), quit_button='Exit')
+            menu=('Change timer', 'Start Monitor', 'Display Name', 'Stop Monitor', 'Reload Config'), quit_button='Exit')
         rumpsTimer.start()
 
 if __name__ == "__main__":
@@ -106,31 +140,9 @@ if __name__ == "__main__":
     print("tushare version: ", ts.__version__)
     print("pandas version: ", pd.__version__)
     print("rumps version: ", rumps.__version__)
-    config = configparser.ConfigParser()
-    config.read("./config.ini")
-    http_proxy      = config.get("DEFAULT", "http_proxy")
-    myAccountleft   = float(config.get("DEFAULT", "myAccountleft"))
-    investCount     = float(config.get("DEFAULT", "investCount"))
-    code1           = config.get("CODESHARE", "code1")
-    code2           = config.get("CODESHARE", "code2")
-    code3           = config.get("CODESHARE", "code3")
-    code4           = config.get("CODESHARE", "code4")
-    code5           = config.get("CODESHARE", "code5")
-    code6           = config.get("CODESHARE", "code6")
-    code7           = config.get("CODESHARE", "code7")
-    code8           = config.get("CODESHARE", "code8")
-    share1          = float(config.get("CODESHARE", "share1"))
-    share2          = float(config.get("CODESHARE", "share2"))
-    share3          = float(config.get("CODESHARE", "share3"))
-    share4          = float(config.get("CODESHARE", "share4"))
-    share5          = float(config.get("CODESHARE", "share5"))
-    share6          = float(config.get("CODESHARE", "share6"))
-    share7          = float(config.get("CODESHARE", "share7"))
-    share8          = float(config.get("CODESHARE", "share8"))
-    os.environ['http_proxy'] = http_proxy
 
-    stockCode       = ['sh' , code1 , code2 , code3 , code4 , code5 , code6 , code7 , code8 ]
-    shareCount      = [0.00 , share1, share2, share3, share4, share5, share6, share7, share8]
+    (myAccountleft, investCount, stockCode, shareCount) = load_config_info( )
+
     rumpsTimer      = rumps.Timer(get_data_print, 5)
     rumpsTimer.isDisplayName = 0
     rumpsSelf       = macosMenuBar()

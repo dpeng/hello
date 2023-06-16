@@ -59,9 +59,13 @@ def get_data_print(_):
                 print(stockName[i], ' ', end='')
         print('  ',end='')
         i = i + 1
+    TotalShare             += myAccountleft
+    TotalBenifit            = TotalShare - investCount
     print("pro ", end='')
     print_with_color(ToadyBenefit, 0.0, '')
-    print(' ',TotalShare)
+    print(' ' , end='')
+    print_with_color(TotalBenifit, 0.0, '')
+    print() # new line
     time.sleep(4)
 
 
@@ -74,6 +78,8 @@ if __name__ == "__main__":
     config = configparser.ConfigParser()
     config.read("./config.ini")
     http_proxy      = config.get("DEFAULT", "http_proxy")
+    myAccountleft   = float(config.get("DEFAULT", "myAccountleft"))
+    investCount     = float(config.get("DEFAULT", "investCount"))
     code1           = config.get("CODESHARE", "code1")
     code2           = config.get("CODESHARE", "code2")
     code3           = config.get("CODESHARE", "code3")

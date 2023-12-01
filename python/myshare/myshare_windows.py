@@ -89,7 +89,7 @@ def get_data_print(countforPrint, previousTodayBenifit):
                 else:
                     print(stockName[i], ' ', end='')
                 print('  ',end='')
-            i = i + 1
+            i = i + 1 
         TotalShare             += myAccountleft
         TotalBenifit            = TotalShare - investCount
         print("pro ", end='')
@@ -104,12 +104,11 @@ def get_data_print(countforPrint, previousTodayBenifit):
 if __name__ == "__main__":
     # setting init account information
     colorama.init(autoreset=True)
-    print("starting...")
     print("tushare version: ", ts.__version__)
     print("pandas version: ", pd.__version__)
 
     (myAccountleft, investCount, stockCode, shareCount) = load_config_info( )
-    
+
     countforPrint   = 0.0
     previousTodayBenifit    = 0.0
     for i in range(2048):

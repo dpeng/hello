@@ -65,40 +65,45 @@ def get_data_print(_):
     currentTime     =  arrays[1][1]
     currentDate     =  arrays[9][1]
 
-    print(currentTime, '', end='')
     i = 0
     while stockCode[i]   != '':
         currentPrice[i]   = float(arrays[4][i])
         preClosePrice[i]  = float(arrays[3][i])
         stockName[i]      = arrays[10][i]
+
         vibratePrecent[i] = (currentPrice[i] - preClosePrice[i])/preClosePrice[i]
         TotalShare       += currentPrice[i]*shareCount[i]
         ToadyBenefit     += (currentPrice[i] - preClosePrice[i]) * shareCount[i]
-        
-        if(i < 1):
-            #print_with_color(currentPrice[i], preClosePrice[i], '') # output szzs as refer
-            print('{:.0f}'.format(currentPrice[i]), end='')
-            print_with_color(currentPrice[i] - preClosePrice[i], 0.0, '') # output szzs as refer
-        else:
-            #print_with_color(currentPrice[i], preClosePrice[i], '_') # output currentPrice with color
-            if (rumpsTimer.isDisplayName == 0):
-                print('{:.2f}'.format(currentPrice[i]), end='') #output current Price
-                print_with_color(vibratePrecent[i]*100, 0.0, '%')
-            else:
-                print(stockName[i], ' ', end='')
-        print('  ',end='')
         i = i + 1
-    rumpsTimer.isDisplayName = 0
-    TotalShare             += myAccountleft
-    TotalBenifit            = TotalShare - investCount
-    print("pro ", end='')
-    print_with_color(ToadyBenefit, 0.0, '')
-    print(' ' , end='')
-    print_with_color(TotalBenifit, 0.0, '')
-    print() # new line
+    if (rumpsTimer.previousTodayBenifit != ToadyBenefit):
+        rumpsTimer.previousTodayBenifit = ToadyBenefit
+        i = 0
+        print(currentTime, '', end='')
+        while stockCode[i]   != '':
+            if(i < 1):
+                #print_with_color(currentPrice[i], preClosePrice[i], '') # output szzs as refer
+                print('{:.0f}'.format(currentPrice[i]), end='')
+                print_with_color(currentPrice[i] - preClosePrice[i], 0.0, ' ') # output szzs as refer
+            else:
+                #print_with_color(currentPrice[i], preClosePrice[i], '_') # output currentPrice with color
+                if (rumpsTimer.isDisplayName == 0):
+                    print('{:.2f}'.format(currentPrice[i]), end='') #output current Price
+                    print_with_color(vibratePrecent[i]*100, 0.0, '%')
+                else:
+                    print(stockName[i], ' ', end='')
+                print('  ',end='')
+            i = i + 1
+        rumpsTimer.isDisplayName = 0
+        TotalShare             += myAccountleft
+        TotalBenifit            = TotalShare - investCount
+        print("pro ", end='')
+        print_with_color(ToadyBenefit, 0.0, '')
+        print(' ' , end='')
+        print_with_color(TotalBenifit, 0.0, '')
+        print() # new line
 
-    #output brief information at menu bar of macOS
-    rumpsSelf.title = str('{:.2f}|{:.2f}'.format(ToadyBenefit/1000, TotalBenifit/1000))
+        #output brief information at menu bar of macOS
+        rumpsSelf.title = str('{:.2f}|{:.2f}'.format(ToadyBenefit/100, TotalBenifit/100))
 
 @rumps.clicked('Change timer')
 def changeit(_):
@@ -143,6 +148,7 @@ if __name__ == "__main__":
     (myAccountleft, investCount, stockCode, shareCount) = load_config_info( )
 
     rumpsTimer      = rumps.Timer(get_data_print, 5)
-    rumpsTimer.isDisplayName = 0
+    rumpsTimer.isDisplayName = 1
+    rumpsTimer.previousTodayBenifit = 0.0
     rumpsSelf       = macosMenuBar()
     rumpsSelf.run()
